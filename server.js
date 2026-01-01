@@ -1,7 +1,15 @@
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-require('dotenv').config();
+import express from 'express';
+import path from 'path';
+import cors from 'cors';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import dotenv from 'dotenv';
+import apiRoutes from './api/routes.js';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
@@ -11,7 +19,7 @@ app.use(express.json());
 app.use(express.static('dist'));
 
 // API Routes (for Gemini calls)
-app.use('/api', require('./api/routes'));
+app.use('/api', apiRoutes);
 
 // Serve React app for all other routes
 app.get('*', (req, res) => {

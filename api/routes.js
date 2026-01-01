@@ -1,7 +1,7 @@
-const express = require('express');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-const router = express.Router();
+import express from 'express';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
+const router = express.Router();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Submit complaint with AI analysis
@@ -49,4 +49,4 @@ router.post('/analyze-media', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
