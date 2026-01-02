@@ -493,35 +493,13 @@ const Home = () => {
     overflow: "hidden"
   }}
 >
-  {/* Grid background */}
-  <GridScan
-    scanColor="#AF99F6"
-    linesColor="#392e4e"
-    scanOpacity={0.12}
-    gridScale={0.18}
-    lineThickness={1}
-    scanGlow={0.2}
-    scanSoftness={2.2}
-    noiseIntensity={0.004}
-    scanDuration={4}
-    scanDelay={3}
-    style={{
-      position: "absolute",
-      inset: 0,
-      zIndex: 0
-    }}
-  />
-
-  {/* Dark overlay to push grid back */}
-  <div
-    style={{
-      position: "absolute",
-      inset: 0,
-      background:
-        "linear-gradient(to bottom, rgba(5,5,8,0.92), rgba(5,5,8,0.75), rgba(5,5,8,0.92))",
-      zIndex: 1
-    }}
-  />
+  {/* Simple background */}
+  <div style={{
+    position: "absolute",
+    inset: 0,
+    background: "linear-gradient(135deg, rgba(175, 153, 246, 0.05), rgba(66, 133, 244, 0.05))",
+    zIndex: 0
+  }} />
 
   {/* CONTENT */}
   <div
@@ -529,13 +507,7 @@ const Home = () => {
       position: "relative",
       zIndex: 2,
       maxWidth: "1200px",
-      margin: "0 auto",
-      padding: "70px",
-      background: "rgba(20,18,35,0.65)",
-      backdropFilter: "blur(14px)",
-      borderRadius: "26px",
-      border: "1px solid rgba(175,153,246,0.25)",
-      boxShadow: "0 0 80px rgba(175,153,246,0.15)"
+      margin: "0 auto"
     }}
   >
     {/* Heading */}
