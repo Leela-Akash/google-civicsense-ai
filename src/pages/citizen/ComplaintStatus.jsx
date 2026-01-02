@@ -87,14 +87,6 @@ const ComplaintStatus = () => {
                   >
                     {complaint.status.replace('_', ' ').toUpperCase()}
                   </span>
-                  {complaint.priority && (
-                    <span 
-                      className="priority-badge"
-                      style={{ backgroundColor: getPriorityColor(complaint.priority) }}
-                    >
-                      {complaint.priority}
-                    </span>
-                  )}
                 </div>
               </div>
 

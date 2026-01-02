@@ -33,54 +33,28 @@ router.post('/submit-complaint', async (req, res) => {
     const docRef = await addDoc(collection(db, 'complaints'), complaintData);
     console.log('Complaint saved to Firestore:', docRef.id);
     
-    // Try Gemini AI analysis (skip if quota exceeded)
+    // Try Gemini AI analysis
     try {
       if (process.env.GEMINI_API_KEY) {
-        // Simple priority logic based on keywords to reduce API calls
-        const urgentKeywords = ['emergency', 'urgent', 'dangerous', 'broken', 'leak', 'fire', 'accident'];
-        const isUrgent = urgentKeywords.some(keyword => 
-          description.toLowerCase().includes(keyword)
-        );
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
         
-        if (isUrgent) {
-          // Only use AI for potentially urgent cases
-          const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' }); // Use your available model
-          
-          const prompt = `Analyze this civic complaint and determine priority (HIGH/MEDIUM/LOW):
-          Description: ${description}
-          Category: ${category === 'Other' ? customCategory : category}
-          
-          Respond with JSON: {"priority": "HIGH/MEDIUM/LOW", "analysis": "brief analysis"}`;
-          
-          const result = await model.generateContent(prompt);
-          const response = await result.response;
-          const aiResult = JSON.parse(response.text());
-          
-          // Update complaint with AI analysis
-          await updateDoc(doc(db, 'complaints', docRef.id), {
-            priority: aiResult.priority,
-            aiAnalysis: aiResult.analysis
-          });
-          
-          console.log('AI analysis completed for urgent case');
-        } else {
-          // Assign priority based on category without AI
-          const categoryPriority = {
-            'Water': 'HIGH',
-            'Electricity': 'HIGH', 
-            'Road': 'MEDIUM',
-            'Garbage': 'LOW'
-          };
-          
-          const priority = categoryPriority[category] || 'MEDIUM';
-          
-          await updateDoc(doc(db, 'complaints', docRef.id), {
-            priority: priority,
-            aiAnalysis: `Automatically classified as ${priority} priority based on category: ${category}`
-          });
-          
-          console.log('Rule-based analysis completed');
-        }
+        const prompt = `Analyze this civic complaint and determine priority (HIGH/MEDIUM/LOW):
+        Description: ${description}
+        Category: ${category === 'Other' ? customCategory : category}
+        
+        Respond with JSON: {"priority": "HIGH/MEDIUM/LOW", "analysis": "brief analysis"}`;
+        
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const aiResult = JSON.parse(response.text());
+        
+        // Update complaint with AI analysis
+        await updateDoc(doc(db, 'complaints', docRef.id), {
+          priority: aiResult.priority,
+          aiAnalysis: aiResult.analysis
+        });
+        
+        console.log('AI analysis completed');
       }
     } catch (aiError) {
       console.error('AI Analysis failed (continuing without it):', aiError.message);
