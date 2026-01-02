@@ -3,6 +3,10 @@ import Footer from "../components/common/Footer";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
+import bhargavaImg from "../assets/bhargava.jpg";
+import leelaImg from "../assets/leelaakash.jpg";
+import arunImg from "../assets/arunadithya.jpg";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,7 +60,7 @@ const About = () => {
     {
       name: "BHARGAVA",
       para: "Bhargava is a passionate developer with expertise in frontend technologies. He brings creativity and innovation to every project, ensuring seamless user experiences.",
-      image: 'https://i.pravatar.cc/300?img=8',
+       image: bhargavaImg,
       title: 'BHARGAVA',
       subtitle: 'Team Member',
       handle: '@bhargava',
@@ -66,8 +70,8 @@ const About = () => {
     },
     {
       name: "LEELA AKASH",
-      para: "Leela Akash specializes in backend development and database management. Her analytical skills and attention to detail make her an invaluable asset to the team.",
-      image: 'https://i.pravatar.cc/300?img=11',
+      para: "Leela Akash specializes in backend development and database management. His analytical skills and attention to detail make her an invaluable asset to the team.",
+      image: leelaImg,
       title: 'LEELA AKASH',
       subtitle: 'Team Member',
       handle: '@leelaakash',
@@ -78,7 +82,7 @@ const About = () => {
     {
       name: "ARUN ADITHYA",
       para: "Arun Adithya is our UI/UX design expert, crafting intuitive and visually appealing interfaces. His design philosophy focuses on user-centric solutions.",
-      image: 'https://i.pravatar.cc/300?img=3',
+      image: arunImg,
       title: 'ARUN ADITHYA',
       subtitle: 'Team Member',
       handle: '@arunadithya',
