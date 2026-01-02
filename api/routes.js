@@ -36,7 +36,7 @@ router.post('/submit-complaint', async (req, res) => {
     // Try Gemini AI analysis (skip if quota exceeded)
     try {
       if (process.env.GEMINI_API_KEY) {
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' }); // Use Gemini 2.5 Flash
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' }); // Use Gemini 2.5 Flash
         
         const prompt = `Analyze this civic complaint and determine priority (HIGH/MEDIUM/LOW):
         Description: ${description}
