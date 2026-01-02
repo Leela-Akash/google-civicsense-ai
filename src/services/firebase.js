@@ -22,7 +22,7 @@ export const storage = getStorage(app);
 export const googleProvider = new GoogleAuthProvider();
 
 // 🔥 CONNECT TO EMULATORS (LOCAL DEVELOPMENT ONLY)
-if (window.location.hostname === "localhost") {
+if (typeof window !== 'undefined' && window.location.hostname === "localhost") {
   connectAuthEmulator(auth, "http://localhost:9099");
   connectFirestoreEmulator(db, "localhost", 8080);
   connectStorageEmulator(storage, "localhost", 9199);
